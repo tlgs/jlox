@@ -2,77 +2,81 @@
 import sys
 
 
-def define_ast(output_dir, base_name, types):
+def define_ast(output_dir, base_name, types) -> None:
     path = f"{output_dir}/{base_name}.java"
 
+    lines = []
+
+    lines.append("package com.jlox.lox;")
+    lines.append("")
+    lines.append("import java.util.List;")
+    lines.append("")
+    lines.append(f"abstract class {base_name} {{")
+
+    lines.extend(define_visitor(base_name, types))
+
+    # The AST classes.
+    for class_name, fields in types:
+        lines.append("")
+        lines.extend(define_type(base_name, class_name, fields))
+
+    # The base accept() method.
+    lines.append("")
+    lines.append("  abstract <R> R accept(Visitor<R> visitor);")
+
+    lines.append("}")
+
     with open(path, "w") as f:
-        f.write("package com.jlox.lox;\n")
-        f.write("\n")
-        f.write("import java.util.List;\n")
-        f.write("\n")
-        f.write(f"abstract class {base_name} {{\n")
+        f.write("\n".join(lines) + "\n")
 
-        define_visitor(f, base_name, types)
-
-        # The AST classes.
-        for t in types:
-            raw_name, raw_fields = t.split(":")
-            class_name = raw_name.rstrip()
-            fields = raw_fields.lstrip()
-
-            f.write("\n")
-            define_type(f, base_name, class_name, fields)
-
-        # The base accept() method.
-        f.write("\n")
-        f.write("  abstract <R> R accept(Visitor<R> visitor);\n")
-
-        f.write("}\n")
+    return
 
 
-def define_visitor(f, base_name, types):
-    f.write("  interface Visitor<R> {\n")
+def define_visitor(base_name, types) -> list[str]:
+    lines = []
+    lines.append("  interface Visitor<R> {")
 
-    for t in types:
-        raw_name, _ = t.split(":")
-        type_name = raw_name.rstrip()
-        f.write(
-            f"    R visit{type_name}{base_name}({type_name} {base_name.lower()});\n"
+    for type_name, _ in types:
+        lines.append(
+            f"    R visit{type_name}{base_name}({type_name} {base_name.lower()});"
         )
 
-    f.write("  }\n")
+    lines.append("  }")
+    return lines
 
 
-def define_type(f, base_name, class_name, field_list):
-    f.write(f"  static class {class_name} extends {base_name} {{\n")
+def define_type(base_name, class_name, field_list) -> list[str]:
+    lines = []
+    lines.append(f"  static class {class_name} extends {base_name} {{")
 
     # Constructor.
-    f.write(f"    {class_name} ({field_list}) {{\n")
+    lines.append(f"    {class_name} ({field_list}) {{")
 
     # Store parameters in fields.
     fields = field_list.split(", ")
     for field in fields:
         _, name = field.split()
-        f.write(f"      this.{name} = {name};\n")
+        lines.append(f"      this.{name} = {name};")
 
-    f.write("    }\n")
+    lines.append("    }")
 
     # Visitor pattern.
-    f.write("\n")
-    f.write("    @Override\n")
-    f.write("    <R> R accept(Visitor<R> visitor) {\n")
-    f.write(f"      return visitor.visit{class_name}{base_name}(this);\n")
-    f.write("    }\n")
+    lines.append("")
+    lines.append("    @Override")
+    lines.append("    <R> R accept(Visitor<R> visitor) {")
+    lines.append(f"      return visitor.visit{class_name}{base_name}(this);")
+    lines.append("    }")
 
     # Fields.
-    f.write("\n")
+    lines.append("")
     for field in fields:
-        f.write(f"    final {field};\n")
+        lines.append(f"    final {field};")
 
-    f.write("  }\n")
+    lines.append("  }")
+    return lines
 
 
-def main():
+def main() -> int:
     args = sys.argv[1:]
     if len(args) != 1:
         print("Usage: generate_ast <output directory>", file=sys.stderr)
@@ -81,10 +85,10 @@ def main():
     output_dir = args[0]
 
     expr_types = [
-        "Binary   : Expr left, Token operator, Expr right",
-        "Grouping : Expr expression",
-        "Literal  : Object value",
-        "Unary    : Token operator, Expr right",
+        ("Binary", "Expr left, Token operator, Expr right"),
+        ("Grouping", "Expr expression"),
+        ("Literal", "Object value"),
+        ("Unary", "Token operator, Expr right"),
     ]
     define_ast(output_dir, "Expr", expr_types)
 
@@ -92,4 +96,4 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
