@@ -1,0 +1,44 @@
+builddir = build
+jflags = -Werror -implicit:none
+
+rule jc
+  command = javac -d $builddir $jflags $in
+
+rule jar
+  command = jar --create --file $out -e $entrypoint -C $builddir $files
+
+b = $builddir
+src = com/jlox/lox
+build $b/$src/AstPrinter.class $
+  $b/$src/Expr$$Binary.class $
+  $b/$src/Expr$$Grouping.class $
+  $b/$src/Expr$$Literal.class $
+  $b/$src/Expr$$Unary.class $
+  $b/$src/Expr$$Visitor.class $
+  $b/$src/Expr.class $
+  $b/$src/Lox.class $
+  $b/$src/Parser$$1.class $
+  $b/$src/Parser$$ParseError.class $
+  $b/$src/Parser.class $
+  $b/$src/Scanner.class $
+  $b/$src/Token.class $
+  $b/$src/TokenType.class $
+  | $b/com/jlox/lox $b/com/jlox $b/com $
+  : jc $
+    $src/AstPrinter.java $
+    $src/Expr.java $
+    $src/Lox.java $
+    $src/Parser.java $
+    $src/Scanner.java $
+    $src/Token.java $
+    $src/TokenType.java
+
+build jlox.jar: jar | $b/$src
+  entrypoint = com.jlox.lox.Lox
+  files = com
+
+
+rule gen
+  command = python $in $src
+
+build $src/Expr.java: gen misc/generate_ast.py
