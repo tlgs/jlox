@@ -33,7 +33,7 @@ build $b/$src/AstPrinter.class $
     $src/Token.java $
     $src/TokenType.java
 
-build jlox.jar: jar | $b/$src
+build $b/jlox.jar: jar | $b/$src
   entrypoint = com.jlox.lox.Lox
   files = com
 

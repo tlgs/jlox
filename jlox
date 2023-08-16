@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd "${BASH_SOURCE%/*}/" || exit
+
+java -jar build/jlox.jar "$@"
