@@ -9,7 +9,7 @@ rule jar
 
 b = $builddir
 src = com/jlox/lox
-build $b/$src/AstPrinter.class $
+build $
   $b/$src/Expr.class $
   $b/$src/Expr$$Binary.class $
   $b/$src/Expr$$Grouping.class $
@@ -28,7 +28,6 @@ build $b/$src/AstPrinter.class $
   $b/$src/TokenType.class $
   | $b/com/jlox/lox $b/com/jlox $b/com $
   : jc $
-    $src/AstPrinter.java $
     $src/Expr.java $
     $src/Interpreter.java $
     $src/Lox.java $
