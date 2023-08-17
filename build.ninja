@@ -5,28 +5,27 @@ rule jc
   command = javac -d $builddir $jflags $in
 
 rule jar
-  command = jar --create --file $out -e $entrypoint -C $builddir $files
+  command = jar -c -f $out -e $entrypoint -C $builddir $files
 
-b = $builddir
 src = com/jlox/lox
 build $
-  $b/$src/Expr.class $
-  $b/$src/Expr$$Binary.class $
-  $b/$src/Expr$$Grouping.class $
-  $b/$src/Expr$$Literal.class $
-  $b/$src/Expr$$Unary.class $
-  $b/$src/Expr$$Visitor.class $
-  $b/$src/Interpreter.class $
-  $b/$src/Interpreter$$1.class $
-  $b/$src/Lox.class $
-  $b/$src/Parser.class $
-  $b/$src/Parser$$1.class $
-  $b/$src/Parser$$ParseError.class $
-  $b/$src/RuntimeError.class $
-  $b/$src/Scanner.class $
-  $b/$src/Token.class $
-  $b/$src/TokenType.class $
-  | $b/com/jlox/lox $b/com/jlox $b/com $
+  $builddir/$src/Expr.class $
+  $builddir/$src/Expr$$Binary.class $
+  $builddir/$src/Expr$$Grouping.class $
+  $builddir/$src/Expr$$Literal.class $
+  $builddir/$src/Expr$$Unary.class $
+  $builddir/$src/Expr$$Visitor.class $
+  $builddir/$src/Interpreter.class $
+  $builddir/$src/Interpreter$$1.class $
+  $builddir/$src/Lox.class $
+  $builddir/$src/Parser.class $
+  $builddir/$src/Parser$$1.class $
+  $builddir/$src/Parser$$ParseError.class $
+  $builddir/$src/RuntimeError.class $
+  $builddir/$src/Scanner.class $
+  $builddir/$src/Token.class $
+  $builddir/$src/TokenType.class $
+  | $builddir/com/jlox/lox $builddir/com/jlox $builddir/com $
   : jc $
     $src/Expr.java $
     $src/Interpreter.java $
@@ -37,12 +36,12 @@ build $
     $src/Token.java $
     $src/TokenType.java
 
-build $b/jlox.jar: jar | $b/$src
+build $builddir/jlox.jar: jar | $builddir/$src
   entrypoint = com.jlox.lox.Lox
   files = com
 
 
 rule gen
-  command = python $in $src
+  command = python misc/generate_ast.py $src
 
-build $src/Expr.java: gen misc/generate_ast.py
+build $src/Expr.java: gen | misc/generate_ast.py
