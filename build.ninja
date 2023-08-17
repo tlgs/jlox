@@ -9,11 +9,14 @@ rule jar
 
 src = com/jlox/lox
 build $
+  $builddir/$src/Environment.class $
   $builddir/$src/Expr.class $
+  $builddir/$src/Expr$$Assign.class $
   $builddir/$src/Expr$$Binary.class $
   $builddir/$src/Expr$$Grouping.class $
   $builddir/$src/Expr$$Literal.class $
   $builddir/$src/Expr$$Unary.class $
+  $builddir/$src/Expr$$Variable.class $
   $builddir/$src/Expr$$Visitor.class $
   $builddir/$src/Interpreter.class $
   $builddir/$src/Interpreter$$1.class $
@@ -23,16 +26,24 @@ build $
   $builddir/$src/Parser$$ParseError.class $
   $builddir/$src/RuntimeError.class $
   $builddir/$src/Scanner.class $
+  $builddir/$src/Stmt.class $
+  $builddir/$src/Stmt$$Block.class $
+  $builddir/$src/Stmt$$Expression.class $
+  $builddir/$src/Stmt$$Print.class $
+  $builddir/$src/Stmt$$Var.class $
+  $builddir/$src/Stmt$$Visitor.class $
   $builddir/$src/Token.class $
   $builddir/$src/TokenType.class $
   | $builddir/com/jlox/lox $builddir/com/jlox $builddir/com $
   : jc $
+    $src/Environment.java $
     $src/Expr.java $
     $src/Interpreter.java $
     $src/Lox.java $
     $src/Parser.java $
     $src/RuntimeError.java $
     $src/Scanner.java $
+    $src/Stmt.java $
     $src/Token.java $
     $src/TokenType.java
 
@@ -44,4 +55,4 @@ build $builddir/jlox.jar: jar | $builddir/$src
 rule gen
   command = python misc/generate_ast.py $src
 
-build $src/Expr.java: gen | misc/generate_ast.py
+build $src/Expr.java $src/Stmt.java: gen | misc/generate_ast.py

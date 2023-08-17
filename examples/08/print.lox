@@ -1,0 +1,5 @@
+// Page 116
+
+print "one";
+print true;
+print 2 + 1;

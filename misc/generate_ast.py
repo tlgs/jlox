@@ -85,12 +85,22 @@ def main() -> int:
     output_dir = args[0]
 
     expr_types = [
+        ("Assign", "Token name, Expr value"),
         ("Binary", "Expr left, Token operator, Expr right"),
         ("Grouping", "Expr expression"),
         ("Literal", "Object value"),
         ("Unary", "Token operator, Expr right"),
+        ("Variable", "Token name"),
     ]
     define_ast(output_dir, "Expr", expr_types)
+
+    stmt_types = [
+        ("Block", "List<Stmt> statements"),
+        ("Expression", "Expr expression"),
+        ("Print", "Expr expression"),
+        ("Var", "Token name, Expr initializer"),
+    ]
+    define_ast(output_dir, "Stmt", stmt_types)
 
     return 0
 
