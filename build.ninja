@@ -1,13 +1,11 @@
 builddir = build
+src = com/jlox/lox
 jflags = -Werror -implicit:none
+
 
 rule jc
   command = javac -d $builddir $jflags $in
 
-rule jar
-  command = jar -c -f $out -e $entrypoint -C $builddir $files
-
-src = com/jlox/lox
 build $
   $builddir/$src/Environment.class $
   $builddir/$src/Expr.class $
@@ -46,6 +44,10 @@ build $
     $src/Stmt.java $
     $src/Token.java $
     $src/TokenType.java
+
+
+rule jar
+  command = jar -c -f $out -e $entrypoint -C $builddir $files
 
 build $builddir/jlox.jar: jar | $builddir/$src
   entrypoint = com.jlox.lox.Lox
