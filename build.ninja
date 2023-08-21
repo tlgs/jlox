@@ -13,6 +13,7 @@ build $
   $builddir/$src/Expr$$Binary.class $
   $builddir/$src/Expr$$Grouping.class $
   $builddir/$src/Expr$$Literal.class $
+  $builddir/$src/Expr$$Logical.class $
   $builddir/$src/Expr$$Unary.class $
   $builddir/$src/Expr$$Variable.class $
   $builddir/$src/Expr$$Visitor.class $
@@ -27,9 +28,11 @@ build $
   $builddir/$src/Stmt.class $
   $builddir/$src/Stmt$$Block.class $
   $builddir/$src/Stmt$$Expression.class $
+  $builddir/$src/Stmt$$If.class $
   $builddir/$src/Stmt$$Print.class $
   $builddir/$src/Stmt$$Var.class $
   $builddir/$src/Stmt$$Visitor.class $
+  $builddir/$src/Stmt$$While.class $
   $builddir/$src/Token.class $
   $builddir/$src/TokenType.class $
   | $builddir/com/jlox/lox $builddir/com/jlox $builddir/com $
