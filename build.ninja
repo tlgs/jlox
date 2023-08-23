@@ -27,6 +27,8 @@ build $
   $builddir/$src/Parser.class $
   $builddir/$src/Parser$$1.class $
   $builddir/$src/Parser$$ParseError.class $
+  $builddir/$src/Resolver.class $
+  $builddir/$src/Resolver$$FunctionType.class $
   $builddir/$src/Return.class $
   $builddir/$src/RuntimeError.class $
   $builddir/$src/Scanner.class $
@@ -51,6 +53,7 @@ build $
     $src/LoxCallable.java $
     $src/LoxFunction.java $
     $src/Parser.java $
+    $src/Resolver.java $
     $src/Return.java $
     $src/RuntimeError.java $
     $src/Scanner.java $
