@@ -12,9 +12,12 @@ build $
   $builddir/$src/Expr$$Assign.class $
   $builddir/$src/Expr$$Binary.class $
   $builddir/$src/Expr$$Call.class $
+  $builddir/$src/Expr$$Get.class $
   $builddir/$src/Expr$$Grouping.class $
   $builddir/$src/Expr$$Literal.class $
   $builddir/$src/Expr$$Logical.class $
+  $builddir/$src/Expr$$Set.class $
+  $builddir/$src/Expr$$This.class $
   $builddir/$src/Expr$$Unary.class $
   $builddir/$src/Expr$$Variable.class $
   $builddir/$src/Expr$$Visitor.class $
@@ -23,17 +26,21 @@ build $
   $builddir/$src/Interpreter$$2.class $
   $builddir/$src/Lox.class $
   $builddir/$src/LoxCallable.class $
+  $builddir/$src/LoxClass.class $
   $builddir/$src/LoxFunction.class $
+  $builddir/$src/LoxInstance.class $
   $builddir/$src/Parser.class $
   $builddir/$src/Parser$$1.class $
   $builddir/$src/Parser$$ParseError.class $
   $builddir/$src/Resolver.class $
+  $builddir/$src/Resolver$$ClassType.class $
   $builddir/$src/Resolver$$FunctionType.class $
   $builddir/$src/Return.class $
   $builddir/$src/RuntimeError.class $
   $builddir/$src/Scanner.class $
   $builddir/$src/Stmt.class $
   $builddir/$src/Stmt$$Block.class $
+  $builddir/$src/Stmt$$Class.class $
   $builddir/$src/Stmt$$Expression.class $
   $builddir/$src/Stmt$$Function.class $
   $builddir/$src/Stmt$$If.class $
@@ -51,7 +58,9 @@ build $
     $src/Interpreter.java $
     $src/Lox.java $
     $src/LoxCallable.java $
+    $src/LoxClass.java $
     $src/LoxFunction.java $
+    $src/LoxInstance.java $
     $src/Parser.java $
     $src/Resolver.java $
     $src/Return.java $

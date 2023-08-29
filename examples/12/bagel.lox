@@ -1,0 +1,6 @@
+// Page 198
+
+class Bagel {}
+var bagel = Bagel();
+
+print bagel;
