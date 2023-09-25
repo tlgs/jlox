@@ -17,6 +17,7 @@ build $
   $builddir/$src/Expr$$Literal.class $
   $builddir/$src/Expr$$Logical.class $
   $builddir/$src/Expr$$Set.class $
+  $builddir/$src/Expr$$Super.class $
   $builddir/$src/Expr$$This.class $
   $builddir/$src/Expr$$Unary.class $
   $builddir/$src/Expr$$Variable.class $
