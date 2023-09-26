@@ -1,5 +1,9 @@
 # jlox
 
+This is a _code along_ to Bob Nystrom's
+[Crafting Interpreters](https://craftinginterpreters.com/).
+It follows the first half of the book where we build a Java **tree-walk interpreter**.
+
 I don't know Java.
 
 ## Usage
